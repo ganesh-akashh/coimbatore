@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, Linking } from 'react-native'
+import { View, Text, Image, TouchableOpacity, Linking, Pressable } from 'react-native'
 import React from 'react'
 import { checkImageURL } from '../../utils'
 import { HeartIcon } from 'react-native-heroicons/outline'
@@ -11,7 +11,7 @@ const JobCard = ({ job }) => {
 
 
     return (
-        <View className=" mt-4 p-3 flex-1 shadow-lg   items-center rounded-lg  border flex  border-[#f8f8f9]  shadow-sm bg-[#FFFFFF]">
+        <Pressable className=" mt-4 p-3 flex-1 shadow-lg   items-center rounded-lg  border flex  border-[#f8f8f9]   bg-[#FFFFFF]">
 
             <Image
                 source={{
@@ -46,7 +46,7 @@ const JobCard = ({ job }) => {
                     </Text>
                 </TouchableOpacity>
 
-        </View>
+        </Pressable>
     )
 }
 

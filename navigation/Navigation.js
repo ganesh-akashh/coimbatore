@@ -6,12 +6,14 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import ServicesScreen from '../screens/ServicesScreen';
 import AddStoreScreen from '../screens/AddStoreScreen';
 import ChatScreen from '../screens/ChatScreen';
+import RobotScreen from '../screens/RobotScreen';
 
 import {
   HomeIcon,
   BriefcaseIcon,
   ChatBubbleLeftIcon,
   ShoppingBagIcon,
+  MicrophoneIcon
 } from 'react-native-heroicons/outline';
 import HomeNavigation from '../components/shared/HomeNavigation';
 
@@ -22,7 +24,7 @@ const HomeTab = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: ({  color, size }) => {
+        tabBarIcon: ({ color, size }) => {
           let iconName;
           if (route.name === 'Home') {
             return <HomeIcon size={size} color={color} />;
@@ -32,13 +34,16 @@ const HomeTab = () => {
             return <ChatBubbleLeftIcon size={size} color={color} />;
           } else if (route.name === 'AddStore') {
             return <ShoppingBagIcon size={size} color={color} />;
+          } else if (route.name === "Community") {
+            return <MicrophoneIcon size={size} color={color} />
           }
         },
       })}
     >
       <Tab.Screen name="Home" options={{ headerShown: false }} component={HomeNavigation} />
       <Tab.Screen name='Services' options={{ headerShown: false }} component={ServicesScreen} />
-      <Tab.Screen name='Chat' options={{ headerShown: false }} component={ChatScreen} />
+      <Tab.Screen name='Chat' options={{ headerShown: false }} component={RobotScreen} />
+      <Tab.Screen name='Community' options={{ headerShown: false }} component={ChatScreen} />
       <Tab.Screen name='AddStore' options={{ headerShown: false }} component={AddStoreScreen} />
     </Tab.Navigator>
   );

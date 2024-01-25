@@ -13,6 +13,8 @@ const Tab = createMaterialTopTabNavigator();
 
 const HomeNavigation = () => {
 
+    
+
     return (
         <SafeAreaView className="flex-1 bg-[#2b5c8f]">
             <StatusBar style="dark" />
