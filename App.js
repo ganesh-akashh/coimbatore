@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+
 import { useFonts } from 'expo-font';
-import LoginScreen from './screens/LoginScreen';
-import HomeScreen from './screens/HomeScreen';
 import { Provider } from 'react-redux';
 import * as SplashScreen from 'expo-splash-screen';
 import { store } from './redux/store';
+import Navigation from './navigation/Navigation';
 
 
 SplashScreen.preventAutoHideAsync();
 
-const Stack = createNativeStackNavigator();
+
 
 const App = () => {
 
@@ -43,12 +42,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Login" options={{ headerShown: false }} component={LoginScreen} />
-          <Stack.Screen name="Home" options={{ headerShown: false }} component={HomeScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Navigation />
     </Provider>
   );
 };
