@@ -31,7 +31,8 @@ const HomeNavigation = () => {
                     tabBarIndicator: false,
                     tabBarIndicatorStyle: { backgroundColor: "white" },
                     tabBarItemStyle: { width: "auto" },
-                    tabBarGap: 5
+                    tabBarGap: 5,
+                    lazy:true
                 }}
             >
                 <Tab.Screen name="Dashboard" component={HomeScreen} />
