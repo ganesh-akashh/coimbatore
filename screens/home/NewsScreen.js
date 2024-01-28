@@ -29,7 +29,7 @@ const NewsScreen = () => {
     return (
         <>
             {loading ?
-                <View className=" flex-1 justify-center items-center">
+                <View className=" flex-1  justify-center items-center">
                     <ActivityIndicator color="black" />
                 </View> :
                 <View className="mb-10">

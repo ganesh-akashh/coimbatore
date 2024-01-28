@@ -3,24 +3,16 @@ import React from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import { useNavigation } from '@react-navigation/native'
 
-const StoreCard = ({ title, imgUrl }) => {
 
-
+const ServiceCard = ({ title, imgUrl }) => {
 
     const navigation = useNavigation();
-    let route;
 
+    const route = "ServiceTypeScreen";
 
-    if (title === "Donation") {
-        route = "DonationFormScreen";
-    } else if (title === "Geo Tagging") {
-        route = "MapFormScreen";
+    if(title==="Geo Tagging"){
+        return null;
     }
-    else {
-        route = "StoreFormScreen"
-    }
-
-
 
     return (
         <TouchableOpacity
@@ -42,4 +34,4 @@ const StoreCard = ({ title, imgUrl }) => {
     )
 }
 
-export default StoreCard
+export default ServiceCard

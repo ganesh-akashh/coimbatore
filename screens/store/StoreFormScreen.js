@@ -1,17 +1,115 @@
-import { View, Text, StatusBar, SafeAreaView, TextInput, Image, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, StatusBar, SafeAreaView, TextInput, Image, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/shared/Navbar'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
+import * as ImagePicker from "expo-image-picker";
+import { CameraIcon } from 'react-native-heroicons/outline';
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
+import { store, FIRESTORE_DB } from "../../firebase"
+import { addDoc, collection } from 'firebase/firestore';
 
 const StoreFormScreen = ({ route, navigation }) => {
 
     const { title, imgUrl } = route.params;
 
+    const storageRef = ref(store, 'Images/' + Date.now());
+
+    const storesRef = collection(FIRESTORE_DB, "stores");
+
+
+
+
     const [loading, setLoading] = useState(false)
+    const [pic, setPic] = useState(null);
+    const [blobImage, setBlobImage] = useState(null);
+    const [metadata, setMetaData] = useState(null);
+
+    const [state, setState] = useState({
+        companyName: "",
+        mobileNumber: "",
+        shopImageUrl: "",
+        specifications: "",
+        type: title,
+        mapUrl: "",
+    })
+
+    const { companyName, mapUrl, shopImageUrl, mobileNumber, specifications, type } = state
+
+
+
+    const setCombinedState = (newState) => {
+        setState((prevState) => ({ ...prevState, ...newState }))
+    }
 
     const handleSubmit = async () => {
+        try {
+            setLoading(true);
+            if (blobImage && metadata) {
+                const uploadTask = uploadBytesResumable(storageRef, blobImage, metadata);
+                await uploadTask;
+                const downloadURL = await getDownloadURL(storageRef);
+                console.log('File uploaded successfully. Download URL:', downloadURL);
+                const docRef = await addDoc(storesRef, {
+                    companyName,
+                    mobileNumber,
+                    type,
+                    specifications,
+                    mapUrl,
+                    shopImageUrl: downloadURL,
+                })
+                setLoading(false);
+                navigation.goBack();
+            }
 
+        } catch (uploadError) {
+            console.error('Error during file upload:', uploadError);
+        }
+    };
+
+
+    const uploadImage = async () => {
+        try {
+            let result = {};
+            await ImagePicker.
+                requestCameraPermissionsAsync();
+            result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                aspect: [16, 16],
+                quality: 1,
+            });
+
+            if (!result.canceled) {
+                setPic(result.assets[0].uri);
+            }
+        }
+        catch (err) {
+            console.log("Error in image picker");
+        }
     }
+
+    useEffect(() => {
+        const uploadImageToServer = async () => {
+            if (pic) {
+                try {
+                    const response = await fetch(pic);
+                    const blobImage = await response.blob();
+                    const metadata = {
+                        contentType: 'image/jpeg',
+                    };
+                    setBlobImage(blobImage)
+                    setMetaData(metadata)
+                } catch (error) {
+                    console.log('Error uploading image to server', error);
+                }
+            }
+        };
+
+        uploadImageToServer();
+    }, [pic]);
+
+
+
 
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -48,7 +146,7 @@ const StoreFormScreen = ({ route, navigation }) => {
                                         style={{ fontFamily: 'poppins-regular' }}
                                         placeholder='Enter the company name*'
                                         placeholderTextColor={'gray'}
-                                        onChangeText={(text) => setCombinedState({ actionTaken: text })}
+                                        onChangeText={(text) => setCombinedState({ companyName: text })}
                                         className=" bg-white  rounded-md border-3 mt-1 shadow-sm border-[#f8f8f9] p-4"
                                         textAlignVertical='top'
 
@@ -67,7 +165,7 @@ const StoreFormScreen = ({ route, navigation }) => {
                                         style={{ fontFamily: 'poppins-regular' }}
                                         placeholder='Enter the mobile number*'
                                         placeholderTextColor={'gray'}
-                                        onChangeText={(text) => setCombinedState({ actionTaken: text })}
+                                        onChangeText={(text) => setCombinedState({ mobileNumber: text })}
                                         className=" bg-white  rounded-md border-3 mt-1 shadow-sm border-[#f8f8f9] p-4"
                                         textAlignVertical='top'
 
@@ -86,7 +184,7 @@ const StoreFormScreen = ({ route, navigation }) => {
                                         style={{ fontFamily: 'poppins-regular' }}
                                         placeholder='Enter the company specifications*'
                                         placeholderTextColor={'gray'}
-                                        onChangeText={(text) => setCombinedState({ clientReview: text })}
+                                        onChangeText={(text) => setCombinedState({ specifications: text })}
                                         className=" bg-white h-[150px] rounded-md border-3 mt-1 shadow-sm border-[#f8f8f9] p-4"
                                         textAlignVertical='top'
                                         multiline
@@ -105,11 +203,41 @@ const StoreFormScreen = ({ route, navigation }) => {
                                         style={{ fontFamily: 'poppins-regular' }}
                                         placeholder='Enter the company location *'
                                         placeholderTextColor={'gray'}
-                                        onChangeText={(text) => setCombinedState({ actionTaken: text })}
+                                        onChangeText={(text) => setCombinedState({ mapUrl: text })}
                                         className=" bg-white  rounded-md border-3 mt-1 shadow-sm border-[#f8f8f9] p-4"
                                         textAlignVertical='top'
 
                                     />
+                                </View>
+
+                                <View>
+                                    <Text
+                                        style={{ fontFamily: 'poppins-semibold' }}
+                                        className="px-2 text-lg text-gray-700 py-2"
+                                    >
+                                        SHOP IMAGES :
+                                    </Text>
+                                    <TouchableOpacity
+                                        className=" h-[250px] flex justify-center items-center rounded-md border-3 mt-1 shadow-sm border-[#f8f8f9] bg-white p-4"
+                                        onPress={uploadImage}
+                                    >
+                                        {pic ?
+                                            <Image
+                                                source={{ uri: pic }}
+                                                style={{ flex: 1, width: '100%', height: '100%', resizeMode: "contain" }}
+                                            /> :
+                                            <View className="flex justify-center items-center">
+
+                                                <CameraIcon color="gray" />
+                                                <Text
+                                                    style={{ fontFamily: 'poppins-regular' }}
+                                                    className="px-2 text-lg text-gray-700 py-2"
+                                                >
+                                                    Click to add your image
+                                                </Text>
+                                            </View>
+                                        }
+                                    </TouchableOpacity>
                                 </View>
 
                                 <View className="py-4">
