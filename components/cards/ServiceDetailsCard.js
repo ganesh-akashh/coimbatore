@@ -29,21 +29,23 @@ const ServiceDetailsCard = ({ service }) => {
     <Pressable
       className="mt-8 p-3  rounded-lg border flex border-[#f8f8f9] shadow-sm bg-[#FFFFFF]"
     >
-      <View className="relative">
-        {
-          isLoading &&
-          <View className="flex absolute left-40  top-36 justify-center items-center">
-            <ActivityIndicator color="black" />
-          </View>
-        }
-        <Image
-          source={{ uri: service.shopImageUrl }}
-          style={{ width: 'auto', height: 250 }}
-          className="mt-3 rounded-lg"
-          onLoadStart={handleLoadStart}
-          onLoadEnd={handleLoadEnd}
-        />
-      </View>
+      {service.shopImageUrl &&
+        <View className="relative">
+          {
+            isLoading &&
+            <View className="flex absolute left-40  top-36 justify-center items-center">
+              <ActivityIndicator color="black" />
+            </View>
+          }
+          <Image
+            source={{ uri: service.shopImageUrl }}
+            style={{ width: 'auto', height: 250 }}
+            className="mt-3 rounded-lg"
+            onLoadStart={handleLoadStart}
+            onLoadEnd={handleLoadEnd}
+          />
+        </View>
+      }
       <Text style={{ fontFamily: 'lobster-regular' }} className="text-4xl text-gray-700 text-center mt-5">
         {service.companyName}
       </Text>

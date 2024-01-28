@@ -23,28 +23,28 @@ const WelcomeScreen = () => {
                 />
             </View>
 
-            <View className="flex-[0.5] justify-around px-2 py-1">
-                <View>
+            <View className="flex-[0.5] space-y-5 justify-between  px-2 py-1">
+                <View >
                     <Text
-                        style={{ fontFamily: 'poppins-semibold' }}
+                        style={{ fontFamily: 'lobster-regular' }}
                         className="text-white text-5xl p-2"
                     >
-                        Coimbatore Unveiled:
+                        Coimbatore Transformed:
                     </Text>
                     <Text
                         style={{ fontFamily: 'poppins-regular' }}
                         className="text-white text-5xl px-1 pt-2 pb-2"
                     >
-                        Your Instant Guide
+                        Tech at Your Fingertips
                     </Text>
                     <Text
                         style={{ fontFamily: 'poppins-medium' }}
                         className="text-white text-base px-3 py-2"
                     >
-                        Discover the beauty and culture of Coimbatore with our app. Experience the best places, events, and more!
+                        Discover the beauty and culture of Coimbatore. Experience the best places, events, and more!
                     </Text>
                 </View>
-                <View className="p-2">
+                <View className="p-2 mb-4">
                     <TouchableOpacity className="px-2 py-3 rounded-xl bg-yellow-300" onPress={handleSubmit}>
                         <Text
                             style={{ fontFamily: 'poppins-semibold' }}

@@ -1,7 +1,7 @@
 import { View, Text, Image, SafeAreaView, StatusBar, ActivityIndicator, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/shared/Navbar'
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
+
 import Empty from '../../components/shared/Empty'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { FIRESTORE_DB } from '../../firebase'

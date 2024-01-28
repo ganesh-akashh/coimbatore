@@ -8,11 +8,22 @@ const ServiceCard = ({ title, imgUrl }) => {
 
     const navigation = useNavigation();
 
-    const route = "ServiceTypeScreen";
 
-    if(title==="Geo Tagging"){
+
+    if (title === "Geo Tagging") {
         return null;
     }
+
+    let route;
+
+    if (title == "Donation") {
+        route = "BloodDonationScreen"
+    } else {
+        route = "ServiceTypeScreen";
+    }
+
+
+
 
     return (
         <TouchableOpacity

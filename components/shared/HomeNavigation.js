@@ -39,10 +39,10 @@ const HomeNavigation = () => {
                 <Tab.Screen name="Dashboard" component={HomeScreen} />
                 <Tab.Screen name="News" component={NewsScreen} />
                 <Tab.Screen name="Jobs" component={JobScreen} />
-                <Tab.Screen name="Events" component={MarketPriceScreen} />
+                {/* <Tab.Screen name="Events" component={MarketPriceScreen} /> */}
                 <Tab.Screen name="Market Price" component={MarketPriceScreen} />
                 <Tab.Screen name="Maps" component={MapScreen} />
-                <Tab.Screen name="Movies" component={MarketPriceScreen} />
+                {/* <Tab.Screen name="Movies" component={MarketPriceScreen} /> */}
             </Tab.Navigator>
         </SafeAreaView>
     );

@@ -15,6 +15,8 @@ const JobScreen = () => {
         num_pages: "1",
     });
 
+    console.log(error);
+
 
 
 

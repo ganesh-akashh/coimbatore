@@ -22,6 +22,7 @@ import { auth } from '../firebase';
 import AddMapScreen from '../screens/store/AddMapScreen';
 import ServiceTypeScreen from '../screens/features/ServiceTypeScreen';
 import AddDonationScreen from '../screens/store/AddDonationScreen';
+import BloodDonationScreen from '../screens/features/BloodDonationScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -42,6 +43,7 @@ const ServiceStack = () => {
     <Stack.Navigator initialRouteName='Home'>
       <Stack.Screen name='Home' options={{ headerShown: false }} component={ServicesScreen} />
       <Stack.Screen name='ServiceTypeScreen' options={{ headerShown: false }} component={ServiceTypeScreen} />
+      <Stack.Screen name='BloodDonationScreen' options={{headerShown:false}} component={BloodDonationScreen} />
     </Stack.Navigator>
   )
 }

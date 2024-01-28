@@ -15,6 +15,10 @@ export const stores = [
     imgUrl: require("../assets/images/blood.png")
   },
   {
+    title: "Share Cab",
+    imgUrl: require("../assets/images/taxi.png"),
+  },
+  {
     title: "Alms Giving",
     imgUrl: require("../assets/images/donation.png")
   },
@@ -84,7 +88,7 @@ export const sliderImages = [
 
 export const newsApiQuery = async () => {
   try {
-    const response = await fetch('https://newsapi.org/v2/everything?q=chennai&apiKey=be07bce3d90a42098bd315b93de77ace');
+    const response = await fetch('https://newsapi.org/v2/everything?q=coimbatore&apiKey=be07bce3d90a42098bd315b93de77ace');
 
     if (response.ok) {
       const data = await response.json();
@@ -118,7 +122,7 @@ export const dummyMessages = [
   },
   {
     role: 'user',
-    content: 'create an image of a dog playing with cat'
+    content: 'Create an image of a dog playing with cat'
   },
   {
     role: 'assistant',

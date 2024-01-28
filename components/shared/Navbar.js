@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Dimensions } from 'react-native'
-import { ArrowRightStartOnRectangleIcon, Bars3CenterLeftIcon, BellIcon, ChevronLeftIcon } from 'react-native-heroicons/outline'
+import { ArrowRightStartOnRectangleIcon,  BellIcon,  UserIcon } from 'react-native-heroicons/outline'
 import { useNavigation } from '@react-navigation/native'
 
 const Navbar = () => {
@@ -11,16 +11,16 @@ const Navbar = () => {
     return (
         <View className="flex-row justify-between items-center px-5" style={{ marginTop: marginValue }}>
             <View>
-                <Bars3CenterLeftIcon color="white" strokeWidth={2} size="28" />
+                <UserIcon color="white" strokeWidth={2} size="28" />
             </View>
-            <View>
+            {/* <View>
                 <Text style={{ fontFamily: 'poppins-medium' }} className=" text-white  text-xl ">
                     <Text className="text-3xl">K</Text>
                     ovai Tech
                 </Text>
-            </View>
+            </View> */}
             <View>
-                <BellIcon color="white" strokeWidth={2} size="28" />
+                <ArrowRightStartOnRectangleIcon color="white" strokeWidth={2} size="28" />
             </View>
         </View>
     )

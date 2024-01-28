@@ -50,7 +50,7 @@ const AddMapScreen = ({ route, navigation }) => {
 
         } catch (error) {
             console.log(error);
-        } 
+        }
     }
 
     return (

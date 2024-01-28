@@ -16,7 +16,7 @@ const NewsScreen = () => {
             try {
                 const response = await newsApiQuery();
                 if (response) {
-                    setArticlesData(response.articles.slice(0, 10));
+                    setArticlesData(response.articles.slice(0, 10).reverse());
                 }
                 setLoading(false)
             } catch (error) {
