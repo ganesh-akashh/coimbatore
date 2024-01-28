@@ -1,6 +1,6 @@
 import { View,  ScrollView } from 'react-native'
 import React, { useState } from 'react'
-// import ImageSlider from '../components/home/ImageSlider'
+import ImageSlider from '../components/home/ImageSlider'
 import HeroContact from '../components/home/HeroContact'
 import HomeWeather from '../components/home/HomeWeather'
 
@@ -13,7 +13,7 @@ const HomeScreen = () => {
       <ScrollView className=" bg-[#F5F7F8]">
         <View className="mt-4 ">
           <View className=" py-3 px-3">
-            {/* <ImageSlider /> */}
+            <ImageSlider />
           </View>
           <View className="flex justify-center px-3  py-1">
             <HeroContact />
