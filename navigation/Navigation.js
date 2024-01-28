@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import ServicesScreen from '../screens/ServicesScreen';
-import AddStoreScreen from '../screens/AddStoreScreen';
+import AddStoreScreen from '../screens/store/AddStoreScreen';
 import ChatScreen from '../screens/ChatScreen';
 import RobotScreen from '../screens/RobotScreen';
-
+import { onAuthStateChanged } from "firebase/auth"
 import {
   HomeIcon,
   BriefcaseIcon,
@@ -16,9 +16,23 @@ import {
   MicrophoneIcon
 } from 'react-native-heroicons/outline';
 import HomeNavigation from '../components/shared/HomeNavigation';
+import StoreFormScreen from '../screens/store/StoreFormScreen';
+import { useDispatch } from 'react-redux';
+import { auth } from '../firebase';
+import AddMapScreen from '../screens/store/AddMapScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const AddStoreStack = () => {
+  return (
+    <Stack.Navigator initialRouteName='Home'>
+      <Stack.Screen name="Home" options={{ headerShown: false }} component={AddStoreScreen} />
+      <Stack.Screen name='StoreFormScreen' options={{ headerShown: false }} component={StoreFormScreen} />
+      <Stack.Screen name='MapFormScreen' options={{ headerShown: false }} component={AddMapScreen} />
+    </Stack.Navigator>
+  );
+};
 
 const HomeTab = () => {
   return (
@@ -44,12 +58,36 @@ const HomeTab = () => {
       <Tab.Screen name='Services' options={{ headerShown: false }} component={ServicesScreen} />
       <Tab.Screen name='Chat' options={{ headerShown: false }} component={RobotScreen} />
       <Tab.Screen name='Community' options={{ headerShown: false }} component={ChatScreen} />
-      <Tab.Screen name='AddStore' options={{ headerShown: false }} component={AddStoreScreen} />
+      <Tab.Screen name='AddStore' options={{ headerShown: false }} component={AddStoreStack} />
     </Tab.Navigator>
   );
 };
 
 const Navigation = () => {
+
+  const dispatch = useDispatch();
+  const [userData, setUserData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+          if (user) {
+            console.log(user);
+          }
+        })
+
+        return () => unsubscribe();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchData();
+  }, [])
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Welcome">

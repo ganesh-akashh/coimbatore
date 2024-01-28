@@ -14,6 +14,12 @@ const Navbar = () => {
                 <Bars3CenterLeftIcon color="white" strokeWidth={2} size="28" />
             </View>
             <View>
+                <Text style={{ fontFamily: 'poppins-medium' }} className=" text-white  text-xl ">
+                    <Text className="text-3xl">K</Text>
+                    ovai Tech
+                </Text>
+            </View>
+            <View>
                 <BellIcon color="white" strokeWidth={2} size="28" />
             </View>
         </View>

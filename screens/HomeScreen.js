@@ -1,6 +1,6 @@
 import { View,  ScrollView } from 'react-native'
 import React, { useState } from 'react'
-
+// import ImageSlider from '../components/home/ImageSlider'
 import HeroContact from '../components/home/HeroContact'
 import HomeWeather from '../components/home/HomeWeather'
 

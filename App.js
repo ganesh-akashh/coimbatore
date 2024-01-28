@@ -4,8 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { useFonts } from 'expo-font';
 import { Provider } from 'react-redux';
 import * as SplashScreen from 'expo-splash-screen';
-import { store } from './redux/store';
+import { store, persistor } from './redux/store';
 import Navigation from './navigation/Navigation';
+import { PersistGate } from 'redux-persist/integration/react';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -42,7 +43,9 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <Navigation />
+      <PersistGate loading={null} persistor={persistor}>
+        <Navigation />
+      </PersistGate>
     </Provider>
   );
 };

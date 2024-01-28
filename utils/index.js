@@ -15,7 +15,7 @@ export const sliderImages = [
 
 export const newsApiQuery = async () => {
     try {
-        const response = await fetch('https://newsapi.org/v2/everything?q=coimbatore&apiKey=be07bce3d90a42098bd315b93de77ace');
+        const response = await fetch('https://newsapi.org/v2/everything?q=chennai&apiKey=be07bce3d90a42098bd315b93de77ace');
 
         if (response.ok) {
             const data = await response.json();

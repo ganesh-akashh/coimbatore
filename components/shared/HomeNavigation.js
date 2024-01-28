@@ -6,6 +6,7 @@ import Navbar from './Navbar';
 import HomeScreen from '../../screens/HomeScreen';
 import NewsScreen from '../../screens/home/NewsScreen';
 import JobScreen from '../../screens/home/JobScreen';
+import MapScreen from '../../screens/home/MapScreen';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -40,7 +41,7 @@ const HomeNavigation = () => {
                 <Tab.Screen name="Jobs" component={JobScreen} />
                 <Tab.Screen name="Events" component={MarketPriceScreen} />
                 <Tab.Screen name="Market Price" component={MarketPriceScreen} />
-                <Tab.Screen name="Maps" component={MarketPriceScreen} />
+                <Tab.Screen name="Maps" component={MapScreen} />
                 <Tab.Screen name="Movies" component={MarketPriceScreen} />
             </Tab.Navigator>
         </SafeAreaView>

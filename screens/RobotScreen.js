@@ -135,8 +135,6 @@ const RobotScreen = () => {
                   }
                 })}
               </Pressable>
-
-
             </ScrollView>
           </View>
         </View>

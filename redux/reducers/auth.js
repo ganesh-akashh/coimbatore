@@ -4,8 +4,6 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState: {
         token: null,
-        isAuthenticated: false,
-        role: null,
         uid: null,
         docId:null,
     },
