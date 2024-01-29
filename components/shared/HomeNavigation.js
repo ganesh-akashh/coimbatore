@@ -7,14 +7,15 @@ import HomeScreen from '../../screens/HomeScreen';
 import NewsScreen from '../../screens/home/NewsScreen';
 import JobScreen from '../../screens/home/JobScreen';
 import MapScreen from '../../screens/home/MapScreen';
-
+import BusTicketScreen from '../../screens/home/BusTicketScreen';
+import ComplaintsScreen from "../../screens/home/ComplaintsScreen"
 const Tab = createMaterialTopTabNavigator();
 
 
 
 const HomeNavigation = () => {
 
-    
+
 
     return (
         <SafeAreaView className="flex-1 bg-[#2b5c8f]">
@@ -33,16 +34,16 @@ const HomeNavigation = () => {
                     tabBarIndicatorStyle: { backgroundColor: "white" },
                     tabBarItemStyle: { width: "auto" },
                     tabBarGap: 5,
-                    lazy:true
+                    lazy: true
                 }}
             >
                 <Tab.Screen name="Dashboard" component={HomeScreen} />
                 <Tab.Screen name="News" component={NewsScreen} />
+                <Tab.Screen name='Complaints' component={ComplaintsScreen} />
                 <Tab.Screen name="Jobs" component={JobScreen} />
-                {/* <Tab.Screen name="Events" component={MarketPriceScreen} /> */}
-                <Tab.Screen name="Market Price" component={MarketPriceScreen} />
-                <Tab.Screen name="Maps" component={MapScreen} />
-                {/* <Tab.Screen name="Movies" component={MarketPriceScreen} /> */}
+                 <Tab.Screen name="Bus Routes" component={BusTicketScreen} />
+                <Tab.Screen name="Market Price" component={MarketPriceScreen} /> 
+                <Tab.Screen name="Maps" component={MapScreen} /> 
             </Tab.Navigator>
         </SafeAreaView>
     );

@@ -18,26 +18,26 @@ const HomeWeather = () => {
 
 
   useEffect(() => {
-    // const fetchWeatherData = async () => {
-    //   setloading(true);
-    //   try {
-    //     const city = 'Coimbatore';
-    //     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=fe4feefa8543e06d4f3c66d92c61b69c`;
-    //     const response = await fetch(apiUrl);
-    //     const data = await response.json();
-    //     if (response.ok) {
-    //       setHumidity(data.main.humidity)
-    //       setTemperatute((data.main.temp - 273.15).toFixed(1))
-    //       setDescription(data.weather[0].main)
-    //       setloading(false)
-    //     } else {
-    //       console.error('Error fetching weather data:', data.message);
-    //     }
-    //   } catch (error) {
-    //     console.error('Error fetching weather data:', error);
-    //   }
-    // };
-    // fetchWeatherData();
+    const fetchWeatherData = async () => {
+      setloading(true);
+      try {
+        const city = 'Coimbatore';
+        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=fe4feefa8543e06d4f3c66d92c61b69c`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        if (response.ok) {
+          setHumidity(data.main.humidity)
+          setTemperatute((data.main.temp - 273.15).toFixed(1))
+          setDescription(data.weather[0].main)
+          setloading(false)
+        } else {
+          console.error('Error fetching weather data:', data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching weather data:', error);
+      }
+    };
+    fetchWeatherData();
   }, []);
 
   return (

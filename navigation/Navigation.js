@@ -64,7 +64,7 @@ const HomeTab = () => {
             return <ShoppingBagIcon size={size} color={color} />;
           } else if (route.name === "Community") {
             return <MicrophoneIcon size={size} color={color} />
-          }
+          } 
         },
       })}
     >

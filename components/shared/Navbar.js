@@ -13,12 +13,11 @@ const Navbar = () => {
             <View>
                 <UserIcon color="white" strokeWidth={2} size="28" />
             </View>
-            {/* <View>
-                <Text style={{ fontFamily: 'poppins-medium' }} className=" text-white  text-xl ">
-                    <Text className="text-3xl">K</Text>
-                    ovai Tech
+            <View>
+                <Text style={{ fontFamily: 'lobster-regular' }} className=" text-white  text-3xl ">
+                    Namba Kovai
                 </Text>
-            </View> */}
+            </View>
             <View>
                 <ArrowRightStartOnRectangleIcon color="white" strokeWidth={2} size="28" />
             </View>

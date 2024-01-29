@@ -12,7 +12,7 @@ const MarketPriceScreen = () => {
     const fuelTitle = ['Item', 'Price (per g)']
 
     const Vegetables = [
-        ['Tomato', '₹30'],
+        ['Tomato', '₹30 '],
         ['Onion', '₹30'],
         ['Carrot', '₹110'],
         ['Beans', '₹40'],
