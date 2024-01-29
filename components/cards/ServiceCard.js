@@ -36,7 +36,7 @@ const ServiceCard = ({ title, imgUrl }) => {
             <Image
                 source={imgUrl}
                 resizeMode='contain'
-                style={{ width: wp(16), height: wp(15) }}
+                style={{ width: wp(12), height: wp(12) }}
             />
             <Text style={{ fontFamily: 'poppins-semibold' }} className="text-sm text-center">
                 {title}

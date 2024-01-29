@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps';
 import { FIRESTORE_DB } from "../../firebase";
 import { collection, onSnapshot, getDocs } from 'firebase/firestore';
@@ -81,7 +81,7 @@ const MapScreen = () => {
                             PRIVATE CAMERAS
                         </Text>
                     </View>
-                     <View className="flex-row items-center">
+                    <View className="flex-row items-center">
                         <View className="h-2 w-2 bg-blue-800" />
                         <Text style={{ fontFamily: 'poppins-regular' }} className="text-base  ml-3">
                             EV CHARGING STATIONS

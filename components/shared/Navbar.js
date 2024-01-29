@@ -1,12 +1,19 @@
-import { View, Text, TouchableOpacity, Dimensions } from 'react-native'
+import { View, Text, TouchableOpacity, Dimensions ,Platform } from 'react-native'
 import { ArrowRightStartOnRectangleIcon,  BellIcon,  UserIcon } from 'react-native-heroicons/outline'
 import { useNavigation } from '@react-navigation/native'
 
 const Navbar = () => {
 
     const screenWidth = Dimensions.get('window').width;
-    const marginValue = screenWidth * 0.045;
+    let marginValue = screenWidth * 0.045;
     const navigation = useNavigation();
+
+
+  if (Platform.OS === 'android') {
+    marginValue *= 1.5; 
+  }
+
+
 
     return (
         <View className="flex-row justify-between items-center px-5" style={{ marginTop: marginValue }}>

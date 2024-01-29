@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, StyleSheet, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Pressable, KeyboardAvoidingView ,ActivityIndicator } from 'react-native';
+import { View, Text, Image, ScrollView, StyleSheet, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Pressable, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
 import React, { useState, useEffect } from 'react'
 import { CameraIcon } from 'react-native-heroicons/outline';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
@@ -6,6 +6,8 @@ import * as ImagePicker from "expo-image-picker";
 import { FIRESTORE_DB, store } from '../../firebase';
 import { addDoc, collection } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
+import emailjs from "@emailjs/browser";
+
 
 const ComplaintsScreen = () => {
 
@@ -56,24 +58,45 @@ const ComplaintsScreen = () => {
     const handleSubmit = async () => {
         try {
             setLoading(true);
+
             if (blobImage && metadata) {
                 const uploadTask = uploadBytesResumable(storageRef, blobImage, metadata);
                 await uploadTask;
+
                 const downloadURL = await getDownloadURL(storageRef);
                 console.log('File uploaded successfully. Download URL:', downloadURL);
+
                 const docRef = await addDoc(complaintsRef, {
                     userName,
                     mapUrl,
                     field,
                     description,
                     complaintUrl: downloadURL,
-                })
+                    status: false,
+                });
+
+                const emailResult = await emailjs.send(
+                    'service_76hhcpq',
+                    'template_jz0h6xk',
+                    {
+                        from_name: userName,
+                        to_name: "Akash G",
+                        from_email: "727721euee006@skcet.ac.in",
+                        to_email: "ganeshakas2004@gmail.com",
+                        message: description,
+                    },
+                    '6ORizV0HXZbbdxisK'
+                );
+
                 setLoading(false);
+                alert("Complaint registered successfully!");
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
+            setLoading(false);
+            alert("Ahh, something went wrong. Please try again.");
         }
-    }
+    };
 
     const setCombinedState = (newstate) => {
         setState((prevState) => ({ ...prevState, ...newstate }))
@@ -204,6 +227,7 @@ const ComplaintsScreen = () => {
                                 style={{ fontFamily: 'poppins-regular' }}
                                 placeholder='Enter the complaint specifications*'
                                 placeholderTextColor={'gray'}
+
                                 onChangeText={(text) => setCombinedState({ description: text })}
                                 className=" bg-white h-[250px] rounded-md border-3 mt-1 shadow-sm border-[#f8f8f9] p-4"
                                 textAlignVertical='top'
@@ -228,3 +252,4 @@ const ComplaintsScreen = () => {
 }
 
 export default ComplaintsScreen
+

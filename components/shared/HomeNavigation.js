@@ -17,8 +17,6 @@ const Tab = createMaterialTopTabNavigator();
 
 const HomeNavigation = () => {
 
-
-
     return (
         <SafeAreaView className="flex-1 bg-[#2b5c8f]">
             <StatusBar style="dark" />
@@ -42,9 +40,8 @@ const HomeNavigation = () => {
                 <Tab.Screen name="Dashboard" component={HomeScreen} />
                 <Tab.Screen name='Complaints' component={ComplaintsScreen} />
                 <Tab.Screen name='All Complaints' component={AllComplaintsScreen} />
-                <Tab.Screen name="News" component={NewsScreen} />
+                <Tab.Screen name='Events' component={NewsScreen} />
                 <Tab.Screen name="Jobs" component={JobScreen} />
-                <Tab.Screen name='Events' component={EventsScreen} />
                 <Tab.Screen name="Bus Routes" component={BusTicketScreen} />
                 <Tab.Screen name="Market Price" component={MarketPriceScreen} />
                 <Tab.Screen name="Maps" component={MapScreen} />

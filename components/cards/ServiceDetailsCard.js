@@ -6,7 +6,7 @@ const ServiceDetailsCard = ({ service }) => {
 
   const [isLoading, setisLoading] = useState(false);
 
-  console.log(isLoading);
+  
 
 
   const handleLoadStart = () => {
