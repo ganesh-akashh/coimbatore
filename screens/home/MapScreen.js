@@ -66,8 +66,6 @@ const MapScreen = () => {
         mapViewRef.current.animateToRegion({
             latitude: marker.latitude,
             longitude: marker.longitude,
-            // latitudeDelta: INITIAL_REGION.latitudeDelta,
-            // longitudeDelta: INITIAL_REGION.longitudeDelta,
         })
     }
 
@@ -75,9 +73,25 @@ const MapScreen = () => {
 
     return (
         <View className="flex-1">
+            <View className="flex-[0.16] px-4 mt-3">
+                <View>
+                    <View className="flex-row items-center">
+                        <View className="h-2 w-2 bg-red-500" />
+                        <Text style={{ fontFamily: 'poppins-regular' }} className="text-base  ml-3">
+                            PRIVATE CAMERAS
+                        </Text>
+                    </View>
+                     <View className="flex-row items-center">
+                        <View className="h-2 w-2 bg-blue-800" />
+                        <Text style={{ fontFamily: 'poppins-regular' }} className="text-base  ml-3">
+                            EV CHARGING STATIONS
+                        </Text>
+                    </View>
+                </View>
+            </View>
             <MapView
                 ref={mapViewRef}
-                style={StyleSheet.absoluteFill}
+                className="flex-1"
                 provider={PROVIDER_GOOGLE}
                 initialRegion={INITIAL_REGION}
                 showsUserLocation

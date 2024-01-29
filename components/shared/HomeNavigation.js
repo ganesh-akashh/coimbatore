@@ -9,6 +9,8 @@ import JobScreen from '../../screens/home/JobScreen';
 import MapScreen from '../../screens/home/MapScreen';
 import BusTicketScreen from '../../screens/home/BusTicketScreen';
 import ComplaintsScreen from "../../screens/home/ComplaintsScreen"
+import EventsScreen from '../../screens/home/EventsScreen';
+import AllComplaintsScreen from '../../screens/home/AllComplaintsScreen';
 const Tab = createMaterialTopTabNavigator();
 
 
@@ -38,12 +40,14 @@ const HomeNavigation = () => {
                 }}
             >
                 <Tab.Screen name="Dashboard" component={HomeScreen} />
-                <Tab.Screen name="News" component={NewsScreen} />
                 <Tab.Screen name='Complaints' component={ComplaintsScreen} />
+                <Tab.Screen name='All Complaints' component={AllComplaintsScreen} />
+                <Tab.Screen name="News" component={NewsScreen} />
                 <Tab.Screen name="Jobs" component={JobScreen} />
-                 <Tab.Screen name="Bus Routes" component={BusTicketScreen} />
-                <Tab.Screen name="Market Price" component={MarketPriceScreen} /> 
-                <Tab.Screen name="Maps" component={MapScreen} /> 
+                <Tab.Screen name='Events' component={EventsScreen} />
+                <Tab.Screen name="Bus Routes" component={BusTicketScreen} />
+                <Tab.Screen name="Market Price" component={MarketPriceScreen} />
+                <Tab.Screen name="Maps" component={MapScreen} />
             </Tab.Navigator>
         </SafeAreaView>
     );

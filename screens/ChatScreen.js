@@ -21,8 +21,11 @@ const communities = [
   {
     type: "Sports & Fitness",
     imgUrl: require("../assets/images/fitness.png")
-  }
-
+  },
+  {
+    type: "Women ",
+    imgUrl: require("../assets/images/beauty.png")
+  },
 ]
 
 

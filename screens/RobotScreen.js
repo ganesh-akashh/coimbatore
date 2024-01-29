@@ -73,7 +73,7 @@ const RobotScreen = () => {
               value={term}
             />
             {loading ?
-              <View  className="mr-4 px-2 py-2 ">
+              <View className="mr-4 px-2 py-2 ">
                 <ActivityIndicator color="black" />
               </View>
               :
