@@ -17,16 +17,21 @@ import {
 } from 'react-native-heroicons/outline';
 import HomeNavigation from '../components/shared/HomeNavigation';
 import StoreFormScreen from '../screens/store/StoreFormScreen';
-import { useDispatch } from 'react-redux';
 import { auth } from '../firebase';
 import AddMapScreen from '../screens/store/AddMapScreen';
 import ServiceTypeScreen from '../screens/features/ServiceTypeScreen';
 import AddDonationScreen from '../screens/store/AddDonationScreen';
 import BloodDonationScreen from '../screens/features/BloodDonationScreen';
 import TextScreen from '../screens/community/TextScreen';
+import SignInScreeen from '../screens/auth/SignInScreeen';
+import SignUpScreen from '../screens/auth/SignUpScreen';
+import { useDispatch } from 'react-redux';
+import { loadAuth } from "../redux/reducers/auth"
+import SpashScrenn from '../screens/SpashScrenn';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
 
 const AddStoreStack = () => {
   return (
@@ -100,8 +105,16 @@ const Navigation = () => {
         setLoading(true);
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
           if (user) {
-            console.log(user);
+            setUserData(true);
+            dispatch(
+              loadAuth({
+                uid: user.uid
+              })
+            )
+          } else {
+            setUserData(false);
           }
+          setLoading(false)
         })
 
         return () => unsubscribe();
@@ -113,11 +126,24 @@ const Navigation = () => {
     fetchData();
   }, [])
 
+  if (loading) {
+    return (
+      <SpashScrenn />
+    )
+  }
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Welcome">
-        <Stack.Screen name="Welcome" options={{ headerShown: false }} component={WelcomeScreen} />
-        <Stack.Screen name="Main" options={{ headerShown: false }} component={HomeTab} />
+      <Stack.Navigator>
+        {
+          userData ?
+            <Stack.Screen name="Main" options={{ headerShown: false }} component={HomeTab} /> :
+            <>
+              <Stack.Screen name="Welcome" options={{ headerShown: false }} component={WelcomeScreen} />
+              <Stack.Screen name='SignIn' options={{ headerShown: false }} component={SignInScreeen} />
+              <Stack.Screen name='SignUp' options={{ headerShown: false }} component={SignUpScreen} />
+            </>
+        }
       </Stack.Navigator>
     </NavigationContainer>
   );

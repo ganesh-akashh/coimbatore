@@ -10,7 +10,7 @@ const WelcomeScreen = () => {
     const marginValue = screenWidth * 0.2;
 
     const handleSubmit = async () => {
-        navigation.navigate("Main");
+        navigation.navigate("SignIn");
     }
 
     return (

@@ -29,7 +29,7 @@ const ServiceCard = ({ title, imgUrl }) => {
         <TouchableOpacity
             className="flex mr-3 w-28 p-1.5 mt-4  border rounded-xl bg-white   border-[#f8f8f9]  shadow-sm space-y-2 justify-center items-center"
             onPress={() => navigation.navigate(route, {
-                title, 
+                title,
                 imgUrl
             })}
         >
