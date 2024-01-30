@@ -6,12 +6,24 @@ import { ChatBubbleBottomCenterIcon } from 'react-native-heroicons/outline'
 import { dummyMessages } from '../../utils'
 import { addDoc, collection, getDocs, query, where, serverTimestamp, onSnapshot, orderBy } from "firebase/firestore"
 import { FIRESTORE_DB } from "../../firebase"
+import CryptoJS from 'react-native-crypto-js';
 
 const TextScreen = ({ route, navigation }) => {
 
     const [term, setTerm] = useState("");
     const [loading, setloading] = useState(false)
     const { type, imgUrl } = route.params;
+
+    const encryptMessage = (message, key) => {
+        const encryptedMessage = CryptoJS.AES.encrypt(message, key).toString();
+        return encryptedMessage;
+    };
+
+    const decryptMessage = (encryptedMessage, key) => {
+        const decryptedMessage = CryptoJS.AES.decrypt(encryptedMessage, key).toString(CryptoJS.enc.Utf8);
+        return decryptedMessage;
+    };
+
 
 
 
@@ -61,7 +73,7 @@ const TextScreen = ({ route, navigation }) => {
             setloading(true);
 
             const docRef = await addDoc(chatRef, {
-                text: term,
+                text: encryptMessage(term, 'nambakovai'),
                 type,
                 createdAt: serverTimestamp(),
             })
@@ -128,7 +140,6 @@ const TextScreen = ({ route, navigation }) => {
                             showsVerticalScrollIndicator={false}
                         >
                             <Pressable className="space-y-4">
-
                                 {data.map((message, index) => {
                                     return (
                                         <View key={index} className="flex-row justify-end">
@@ -136,7 +147,7 @@ const TextScreen = ({ route, navigation }) => {
                                                 style={{ width: wp(70) }}
                                                 className="bg-[#2b5c8f] rounded-xl p-2.5 rounded-tr-none"
                                             >
-                                                <Text className="text-white" style={{ fontFamily: 'poppins-regular' }}>{message.text}</Text>
+                                                <Text className="text-white" style={{ fontFamily: 'poppins-regular' }}> {decryptMessage(message.text, 'nambakovai')}</Text>
                                             </View>
                                         </View>
                                     )

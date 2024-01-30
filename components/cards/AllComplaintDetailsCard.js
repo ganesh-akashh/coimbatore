@@ -1,6 +1,7 @@
 import { View, Text, Pressable, Image, ActivityIndicator, TouchableOpacity, Linking } from 'react-native';
 import React, { useState } from 'react'
 import { MapPinIcon } from 'react-native-heroicons/outline';
+import CryptoJS from 'react-native-crypto-js';
 
 const AllComplaintDetailsCard = ({ service }) => {
 
@@ -20,8 +21,15 @@ const AllComplaintDetailsCard = ({ service }) => {
         }
     };
 
-    const renderSpecifications = () => {
-        const specificationsArray = service.description.split('. ');
+     const decryptMessage = (encryptedMessage, key) => {
+        const decryptedMessage = CryptoJS.AES.decrypt(encryptedMessage, key).toString(CryptoJS.enc.Utf8);
+        return decryptedMessage;
+    };
+
+      const renderSpecifications = () => {
+        const decryptedDescription = decryptMessage(service.description, 'nambakovai');
+        const specificationsArray = decryptedDescription.split('. ');
+        
         return specificationsArray.map((specification, index) => (
             <Text key={index} style={{ fontFamily: 'poppins-regular' }} className="text-base mt-2">
                 --  {specification}

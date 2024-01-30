@@ -1,7 +1,7 @@
-import { View, Text, Image, SafeAreaView, StatusBar, ActivityIndicator, FlatList } from 'react-native'
+import { View, Text, Image, SafeAreaView, StatusBar, ActivityIndicator, FlatList, RefreshControl } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
-import Navbar from '../../components/shared/Navbar'
+import CryptoJS from 'react-native-crypto-js';
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { FIRESTORE_DB } from '../../firebase'
 import AllComplaintDetailsCard from '../../components/cards/AllComplaintDetailsCard'
@@ -10,27 +10,35 @@ const AllComplaintsScreen = () => {
 
   const [loading, setLoading] = useState(false);
   const communitiesRef = collection(FIRESTORE_DB, "complaints");
+  const [refreshing, setRefreshing] = useState(false);
   const [data, setData] = useState([]);
 
 
+  const fetchQuery = async () => {
+    try {
+      setLoading(true);
+      const querySnapshot = await getDocs(communitiesRef);
+      const fetchedData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setData(fetchedData);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchQuery = async () => {
-      try {
-        setLoading(true);
-        const querySnapshot = await getDocs(communitiesRef);
-        const fetchedData = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setData(fetchedData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchQuery();
   }, []);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    fetchQuery();
+  };
   return (
     <View className="flex-1 bg-white">
       <Text style={{ fontFamily: 'poppins-semibold' }} className="text-2xl p-4 mt-5">
@@ -49,7 +57,11 @@ const AllComplaintsScreen = () => {
                 keyExtractor={(item, index) => index.toString()}
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
-                renderItem={({ item }) => <AllComplaintDetailsCard service={item} />}
+                renderItem={({ item }) => <AllComplaintDetailsCard service={item} />
+                }
+                refreshControl={
+                  <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                }
               />
             </View>
           }

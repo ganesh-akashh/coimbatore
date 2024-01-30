@@ -7,6 +7,7 @@ import { FIRESTORE_DB, store } from '../../firebase';
 import { addDoc, collection } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 import emailjs from "@emailjs/browser";
+import CryptoJS from 'react-native-crypto-js';
 
 
 const ComplaintsScreen = () => {
@@ -18,6 +19,14 @@ const ComplaintsScreen = () => {
 
     const complaintsRef = collection(FIRESTORE_DB, "complaints");
     const storageRef = ref(store, 'Images/' + Date.now());
+
+    const encryptMessage = (message, key) => {
+        const encryptedMessage = CryptoJS.AES.encrypt(message, key).toString();
+        return encryptedMessage;
+    };
+
+
+
 
 
     const [state, setState] = useState({
@@ -31,7 +40,19 @@ const ComplaintsScreen = () => {
 
     const { userName, mapUrl, field, description, complaintUrl } = state;
 
-
+    const clearInputs = () => {
+        setState({
+            userName: '',
+            mapUrl: '',
+            field: '',
+            description: '',
+            complaintUrl: '',
+            status: false,
+        });
+        setPic(null);
+        setBlobImage(null);
+        setMetaData(null);
+    };
 
     const uploadImage = async () => {
         try {
@@ -70,7 +91,7 @@ const ComplaintsScreen = () => {
                     userName,
                     mapUrl,
                     field,
-                    description,
+                    description: encryptMessage(description, 'nambakovai'),
                     complaintUrl: downloadURL,
                     status: false,
                 });
@@ -87,9 +108,9 @@ const ComplaintsScreen = () => {
                     },
                     '6ORizV0HXZbbdxisK'
                 );
-
                 setLoading(false);
                 alert("Complaint registered successfully!");
+                 clearInputs();
             }
         } catch (error) {
             console.error(error);
